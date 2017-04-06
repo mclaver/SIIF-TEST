@@ -1,0 +1,481 @@
+<!-- START SIGMA IMPORTS -->
+<script src="../src/sigma.core.js"></script>
+<script src="../src/conrad.js"></script>
+<script src="../src/utils/sigma.utils.js"></script>
+<script src="../src/utils/sigma.polyfills.js"></script>
+<script src="../src/sigma.settings.js"></script>
+<script src="../src/classes/sigma.classes.dispatcher.js"></script>
+<script src="../src/classes/sigma.classes.configurable.js"></script>
+<script src="../src/classes/sigma.classes.graph.js"></script>
+<script src="../src/classes/sigma.classes.camera.js"></script>
+<script src="../src/classes/sigma.classes.quad.js"></script>
+<script src="../src/captors/sigma.captors.mouse.js"></script>
+<script src="../src/captors/sigma.captors.touch.js"></script>
+<script src="../src/renderers/sigma.renderers.canvas.js"></script>
+<script src="../src/renderers/sigma.renderers.webgl.js"></script>
+<script src="../src/renderers/sigma.renderers.svg.js"></script>
+<script src="../src/renderers/sigma.renderers.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.utils.js"></script>
+<script src="../src/renderers/svg/sigma.svg.nodes.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.curve.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.curvedArrow.js"></script>
+<script src="../src/renderers/svg/sigma.svg.labels.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.hovers.def.js"></script>
+<script src="../src/middlewares/sigma.middlewares.rescale.js"></script>
+<script src="../src/middlewares/sigma.middlewares.copy.js"></script>
+<script src="../src/misc/sigma.misc.animation.js"></script>
+<script src="../src/misc/sigma.misc.bindEvents.js"></script>
+<script src="../src/misc/sigma.misc.bindDOMEvents.js"></script>
+<script src="../src/misc/sigma.misc.drawHovers.js"></script>
+<!-- END SIGMA IMPORTS -->
+<script src="../plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+<script src="../plugins/sigma.parsers.cypher.js"></script>
+
+<script src="../plugins/sigma.helpers.graph/sigma.helpers.graph.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/settings.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+
+<script src="../plugins/sigma.plugins.tooltips/sigma.plugins.tooltips.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+
+<!-- -->
+<script src="../plugins/sigma.renderers.halo/settings.js"></script>
+<script src="../plugins/sigma.renderers.halo/sigma.renderers.halo.js"></script>
+
+<script src="../plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script>
+
+<script src="../plugins/sigma.plugins.keyboard/sigma.plugins.keyboard.js"></script>
+<script src="../plugins/sigma.plugins.activeState/sigma.plugins.activeState.js"></script>
+<script src="../plugins/sigma.plugins.select/sigma.plugins.select.js"></script>
+<script src="../plugins/sigma.plugins.lasso/sigma.plugins.lasso.js"></script>
+
+<script src="../plugins/sigma.renderers.linkurious/settings.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.labels.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.cross.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.diamond.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.equilateral.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.square.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.star.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+
+
+<meta http-equiv="pragma" content="no-cache" />
+<!DOCTYPE html>
+<html>
+<head>
+<title>SIIF : </title>
+</head>
+<body>
+
+
+</body>
+
+
+<div id="container">
+    <style>
+        #graph-container {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+        }
+
+	.sigma-tooltip {
+      	max-width: 240px;
+      	max-height: 280px;
+      	background-color: rgb(249, 247, 237);
+      	box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      	border-radius: 6px;
+    	}
+
+    .sigma-tooltip-header {
+      font-variant: small-caps;
+      font-size: 120%;
+      color: #437356;
+      border-bottom: 1px solid #aac789;
+      padding: 10px;
+    }
+
+    .sigma-tooltip-body {
+      padding: 10px;
+    }
+
+    .sigma-tooltip-body th {
+      color: #999;
+      text-align: left;
+    }
+
+    .sigma-tooltip-footer {
+      padding: 10px;
+      border-top: 1px solid #aac789;
+    }
+
+    .sigma-tooltip > .arrow {
+      border-width: 10px;
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+    }
+
+    .sigma-tooltip.top {
+      margin-top: -12px;
+    }
+    .sigma-tooltip.top > .arrow {
+      left: 50%;
+      bottom: -10px;
+      margin-left: -10px;
+      border-top-color: rgb(249, 247, 237);
+      border-bottom-width: 0;
+    }
+
+    .sigma-tooltip.bottom {
+      margin-top: 12px;
+    }
+    .sigma-tooltip.bottom > .arrow {
+      left: 50%;
+      top: -10px;
+      margin-left: -10px;
+      border-bottom-color: rgb(249, 247, 237);
+      border-top-width: 0;
+    }
+    .sigma-tooltip.left {
+      margin-left: -12px;
+    }
+    .sigma-tooltip.left > .arrow {
+      top: 50%;
+      right: -10px;
+      margin-top: -10px;
+      border-left-color: rgb(249, 247, 237);
+      border-right-width: 0;
+    }
+
+    .sigma-tooltip.right {
+      margin-left: 12px;
+    }
+    .sigma-tooltip.right > .arrow {
+      top: 50%;
+      left: -10px;
+      margin-top: -10px;
+      border-right-color: rgb(249, 247, 237);
+      border-left-width: 0;
+    }
+
+#sidebar {
+      bottom: 0;
+      right: 0;
+      width: 300px;
+      height: 150px;
+      position: absolute;
+      background-color: #330;
+      padding: 10px;
+    }
+#button {
+    background-color: #e7e7e7;
+    border: none;
+	border-radius: 10px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	}
+
+#inputtext {
+    	width: 100%;
+    	padding: 12px 20px;
+    	margin: 8px 32px;
+    	box-sizing: border-box;
+	display: inline-block;
+   	 background-color: #e7e7e7;	
+	}
+
+
+    </style>
+    <div id="graph-container"></div>
+    <!-- <div id="sidebar">This area is not a drop target.</div> -->
+
+</div>
+
+<!-- <div id="sidebar" <class=button  onclick="myFunction()">Try it</button> </div> -->
+<!-- <div id="sidebar" <div id="button" <a onclick="myFunction()" class="button">Buscar</a></div></div> -->
+
+
+<div id="sidebar" <FORM NAME="myform" ACTION="" METHOD="GET">
+Enter something in the box: <BR>
+<INPUT TYPE="text" id="textocaso" NAME="inputbox" VALUE=""><P>
+<INPUT TYPE="button" NAME="Buscar" Value="Buscar" onClick="BuscarCaso()">
+</FORM></div>
+
+
+</html>
+
+<script type="application/javascript">
+var NumeroCaso="";
+
+function BuscarCaso(NumeroCaso) {
+	//alert("hola");
+	var NumeroCaso = "";
+	NumeroCaso=document.getElementById("textocaso").value;
+	//'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100'
+	var CQL='MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100';
+	runCQL (CQL);
+}
+
+
+
+
+/**
+ * This is a basic example on how to develop a custom node renderer. In
+ * this example, the renderer will display an image clipped in a disc,
+ * with a border colored according the node's "color" value.
+ *
+ * If a node as the value "image" to its attribute "type", then it will
+ * displayed with the node renderer "sigma.canvas.nodes.image", with the
+ * url being its "url" value.
+ *
+ * IMPORTANT: This node renderer just works with the canvas renderer. If
+ * you do want to display images with the WebGL renderer, you will have
+ * to develop a specific WebGL node renderer.
+ */
+sigma.utils.pkg('sigma.canvas.nodes');
+
+
+/*
+sigma.canvas.nodes.image = (function() {
+  var _cache = {},
+      _loading = {},
+      _callbacks = {};
+
+  // Return the renderer itself:
+  var renderer = function(node, context, settings) {
+    var args = arguments,
+        prefix = settings('prefix') || '',
+        size = node[prefix + 'size'],
+        color = node.color || settings('defaultNodeColor'),
+        url = node.url;
+
+    if (_cache[url]) {
+      context.save();
+
+      // Draw the clipping disc:
+      context.beginPath();
+      context.arc(
+        node[prefix + 'x'],
+        node[prefix + 'y'],
+        node[prefix + 'size'],
+        0,
+        Math.PI * 2,
+        true
+      );
+      context.closePath();
+      context.clip();
+
+      // Draw the image
+      context.drawImage(
+        _cache[url],
+        node[prefix + 'x'] - size,
+        node[prefix + 'y'] - size,
+        2 * size,
+        2 * size
+      );
+
+      // Quit the "clipping mode":
+      context.restore();
+
+      // Draw the border:
+      context.beginPath();
+      context.arc(
+        node[prefix + 'x'],
+        node[prefix + 'y'],
+        node[prefix + 'size'],
+        0,
+        Math.PI * 2,
+        true
+      );
+      context.lineWidth = size / 5;
+      context.strokeStyle = node.color || settings('defaultNodeColor');
+      context.stroke();
+    } else {
+      sigma.canvas.nodes.image.cache(url);
+      sigma.canvas.nodes.def.apply(
+        sigma.canvas.nodes,
+        args
+      );
+    }
+  };
+
+
+
+
+
+  // Let's add a public method to cache images, to make it possible to
+  // preload images before the initial rendering:
+  renderer.cache = function(url, callback) {
+    if (callback)
+      _callbacks[url] = callback;
+    if (_loading[url])
+      return;
+
+    var img = new Image();
+
+    img.onload = function() {
+      _loading[url] = false;
+      _cache[url] = img;
+
+      if (_callbacks[url]) {
+        _callbacks[url].call(this, img);
+        delete _callbacks[url];
+      }
+    };
+
+    _loading[url] = true;
+    img.src = url;
+  };
+
+  return renderer;
+})();
+*/
+
+
+
+function runCQL (query){
+    /**
+
+
+     * Here is just a basic example on how to properly display a neo4j cypher query.
+     *
+     * The plugin sigma.neo4j.cypher can load a cypher query, parse the JSON response,
+     * and instantiate sigma when the response is received.
+     *
+     * It based on the json parser (that's why its must be loaded).
+     */
+    //console.log("Relationship types");
+    sigma.neo4j.cypher(
+            { url: 'http://10.170.50.69:7474', user: 'neo4j', password: 'admin' },
+	//'MATCH (n)-[]-() OPTIONAL MATCH (n:Denunciante) RETURN n LIMIT 1000',
+	//'MATCHtClickNode(n) RETURN n LIMIT 1000',
+        //    'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100',//'MATCH (n) RETURN n LIMIT 1000',//'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100',
+	     query,
+            { container: 'graph-container' } ,
+            function(s) {
+                console.log('Number of nodes :'+ s.graph.nodes().length);
+                console.log('Number of edges :'+ s.graph.edges().length);
+
+	var config = {
+  		node: [{
+    		show: 'hovers',
+    		hide: 'hovers',
+    		cssClass: 'sigma-tooltip',
+    		position: 'top',
+    		autoadjust: true,
+    		template:
+    		'<div class="arrow"></div>' +
+    		' <div class="sigma-tooltip-header">{{label}}</div>' +
+    		'  <div class="sigma-tooltip-body">' +
+    		'    <table>' +
+    		'      <tr><th>Name</th> <td>{{"data.name"}}</td></tr>' +
+    		'      <tr><th>Gender</th> <td>{{"data.gender"}}</td></tr>' +
+    		'      <tr><th>Age</th> <td>{{"data.age"}}</td></tr>' +
+    		'      <tr><th>City</th> <td>{{"data.city"}}</td></tr>' +
+    		'    </table>' +
+    		'  </div>' +
+    		'  <div class="sigma-tooltip-footer">Number of connections: {{degree}}</div>',
+    		renderer: function(node, template) {
+      		// The function context is s.graph
+      		node.degree = this.degree(node.id);
+
+      		// Returns an HTML string:
+      		return Mustache.render(template, node);
+
+      		// Returns a DOM Element:
+      		//var el = document.createElement('div');
+      		//return el.innerHTML = Mustache.render(template, node);
+    		}
+  		}, {
+    		show: 'rightClickNode',
+    		cssClass: 'sigma-tooltip',
+    		position: 'right',
+    		template:
+    			'<div class="arrow"></div>' +
+    			' <div class="sigma-tooltip-header">{{label}}</div>' +
+    			'  <div class="sigma-tooltip-body">' +
+    			'   <p> Context menu for {{data.name}} </p>' +
+    			'  </div>' +
+    			' <div class="sigma-tooltip-footer">Number of connections: {{degree}}</div>',
+    		renderer: function(node, template) {
+      		node.degree = this.degree(node.id);
+      		return Mustache.render(template, node);
+    		}
+  		}],
+  		stage: {
+    		template:
+    			'<div class="arrow"></div>' +
+    			'<div class="sigma-tooltip-header"> Menu </div>'
+  		}
+		};
+
+		//var tooltips = sigma.plugins.tooltips(s, s.renderers[0], config);
+		var tooltips = sigma.plugins.tooltips(s, s.renderers[0], {node: { position : 'top' ,show: 'clickNode', template: '<b>Mostrar Datos del NODO dependiento el tipo</b>' }});
+
+ 		var activeState = sigma.plugins.activeState(s);
+		var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
+
+                dragListener.bind('startdrag', function(event) {console.log(event) });
+
+            }
+    );
+
+    // Calling neo4j to get all its relationship type
+    sigma.neo4j.getTypes(
+            { url: 'http://10.170.50.69:7474', user:'neo4j', password:'admin' },
+            function(types) {
+                console.log("Relationship types" + types);
+            }
+    );
+
+    //Calling neo4j to get all its node label
+    sigma.neo4j.getLabels(
+            { url: 'http://10.170.50.69:7474', user:'neo4j', password:'admin' },
+            function(labels) {
+                console.log("Node labels" + labels);
+            }
+
+    );
+
+
+} //fin de la funcion runCQL
+
+</script>

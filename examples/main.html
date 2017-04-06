@@ -1,0 +1,827 @@
+<!-- START SIGMA IMPORTS -->
+<script src="../src/sigma.core.js"></script>
+<script src="../src/conrad.js"></script>
+<script src="../src/utils/sigma.utils.js"></script>
+<script src="../src/utils/sigma.polyfills.js"></script>
+<script src="../src/sigma.settings.js"></script>
+<script src="../src/classes/sigma.classes.dispatcher.js"></script>
+<script src="../src/classes/sigma.classes.configurable.js"></script>
+<script src="../src/classes/sigma.classes.graph.js"></script>
+<script src="../src/classes/sigma.classes.camera.js"></script>
+<script src="../src/classes/sigma.classes.quad.js"></script>
+<script src="../src/captors/sigma.captors.mouse.js"></script>
+<script src="../src/captors/sigma.captors.touch.js"></script>
+<script src="../src/renderers/sigma.renderers.canvas.js"></script>
+<script src="../src/renderers/sigma.renderers.webgl.js"></script>
+<script src="../src/renderers/sigma.renderers.svg.js"></script>
+<script src="../src/renderers/sigma.renderers.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.utils.js"></script>
+<script src="../src/renderers/svg/sigma.svg.nodes.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.curve.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.curvedArrow.js"></script>
+<script src="../src/renderers/svg/sigma.svg.labels.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.hovers.def.js"></script>
+<script src="../src/middlewares/sigma.middlewares.rescale.js"></script>
+<script src="../src/middlewares/sigma.middlewares.copy.js"></script>
+<script src="../src/misc/sigma.misc.animation.js"></script>
+<script src="../src/misc/sigma.misc.bindEvents.js"></script>
+<script src="../src/misc/sigma.misc.bindDOMEvents.js"></script>
+<script src="../src/misc/sigma.misc.drawHovers.js"></script>
+<!-- END SIGMA IMPORTS -->
+
+<!-- <script src="../plugins/sigma.layouts.dagre/sigma.layout.dagre.js"></script>  -->
+
+<script src="../plugins/sigma.layouts.forceLink/supervisor.js"></script>
+<script src="../plugins/sigma.layouts.forceLink/worker.js"></script>
+
+<script src="../plugins/sigma.layouts.noverlap/sigma.layouts.noverlap.js"></script>
+<script src="../plugins/sigma.plugins.animate/sigma.plugins.animate.js"></script>
+
+<script src="../plugins/sigma.layouts.forceAtlas2/worker.js"></script>
+<script src="../plugins/sigma.layouts.forceAtlas2/supervisor.js"></script>
+<script src="../plugins/sigma.exporters.svg/sigma.exporters.svg.js"></script>
+
+<script src="../plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+<script src="../plugins/sigma.parsers.cypher.js"></script>
+
+<script src="../plugins/sigma.helpers.graph/sigma.helpers.graph.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/settings.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+
+<script src="../plugins/sigma.plugins.tooltips/sigma.plugins.tooltips.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+
+<!-- -->
+<script src="../plugins/sigma.renderers.halo/settings.js"></script>
+<script src="../plugins/sigma.renderers.halo/sigma.renderers.halo.js"></script>
+
+<script src="../plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script>
+
+<script src="../plugins/sigma.plugins.keyboard/sigma.plugins.keyboard.js"></script>
+<script src="../plugins/sigma.plugins.activeState/sigma.plugins.activeState.js"></script>
+<script src="../plugins/sigma.plugins.select/sigma.plugins.select.js"></script>
+<script src="../plugins/sigma.plugins.lasso/sigma.plugins.lasso.js"></script>
+
+<script src="../plugins/sigma.renderers.linkurious/settings.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.labels.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.cross.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.diamond.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.equilateral.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.square.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.star.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+
+
+<meta http-equiv="pragma" content="no-cache" />
+
+<!DOCTYPE html>
+<html lang="en">
+
+<div id="container">
+    <style>
+        #graph-container {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+        }
+
+	.sigma-tooltip {
+      	max-width: 240px;
+      	max-height: 280px;
+      	background-color: rgb(249, 247, 237);
+      	box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      	border-radius: 6px;
+    	}
+
+    .sigma-tooltip-header {
+      font-variant: small-caps;
+      font-size: 120%;
+      color: #437356;
+      border-bottom: 1px solid #aac789;
+      padding: 10px;
+    }
+
+    .sigma-tooltip-body {
+      padding: 10px;
+    }
+
+    .sigma-tooltip-body th {
+      color: #999;
+      text-align: left;
+    }
+
+    .sigma-tooltip-footer {
+      padding: 10px;
+      border-top: 1px solid #aac789;
+    }
+
+    .sigma-tooltip > .arrow {
+      border-width: 10px;
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+    }
+
+    .sigma-tooltip.top {
+      margin-top: -12px;
+    }
+    .sigma-tooltip.top > .arrow {
+      left: 50%;
+      bottom: -10px;
+      margin-left: -10px;
+      border-top-color: rgb(249, 247, 237);
+      border-bottom-width: 0;
+    }
+
+    .sigma-tooltip.bottom {
+      margin-top: 12px;
+    }
+    .sigma-tooltip.bottom > .arrow {
+      left: 50%;
+      top: -10px;
+      margin-left: -10px;
+      border-bottom-color: rgb(249, 247, 237);
+      border-top-width: 0;
+    }
+    .sigma-tooltip.left {
+      margin-left: -12px;
+    }
+    .sigma-tooltip.left > .arrow {
+      top: 50%;
+      right: -10px;
+      margin-top: -10px;
+      border-left-color: rgb(249, 247, 237);
+      border-right-width: 0;
+    }
+
+    .sigma-tooltip.right {
+      margin-left: 12px;
+    }
+    .sigma-tooltip.right > .arrow {
+      top: 50%;
+      left: -10px;
+      margin-top: -10px;
+      border-right-color: rgb(249, 247, 237);
+      border-left-width: 0;
+    }
+
+#sidebar {
+      bottom: 0;
+      right: 0;
+      width: 300px;
+      height: 150px;
+      position: absolute;
+      background-color: #330;
+      padding: 10px;
+    }
+#button {
+    background-color: #e7e7e7;
+    border: none;
+	border-radius: 10px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	}
+
+#inputtext {
+    	width: 100%;
+    	padding: 12px 20px;
+    	margin: 8px 32px;
+    	box-sizing: border-box;
+	display: inline-block;
+   	 background-color: #e7e7e7;	
+	}
+
+	<!-- -->
+	
+    </style>
+    <div id="graph-container" onClick="pararAmimacion(GRAFO)"></div>
+    <!-- <div id="sidebar">This area is not a drop target.</div> -->
+
+</div>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>SIIF: Sistema Integral de Investigacion Fiscal</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">SiiF</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+        <!--<li><a href="#">Link</a></li>-->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Archivo<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="main.html">Nuevo</a></li>
+			<li><a onClick="Exportar(GRAFO)">Exportar a imagen...</a></li>
+			<li><a href="#">Exportar reporte...</a></li>
+          </ul>
+        </li>
+		<li class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tipo Busqueda<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a onClick="TipoBusqueda('Persona')">Persona</a></li>
+            <li><a onClick="TipoBusqueda('Domicilio')">Domicilio</a></li>
+            <li><a onClick="TipoBusqueda('Telefono')">Telefono</a></li>
+			<li><a onClick="TipoBusqueda('E-Mail')">E-Mail</a></li>
+			<li><a onClick="TipoBusqueda('Caso')">Caso</a></li>
+			<li><a onClick="TipoBusqueda('Denuncia')">Denuncia</a></li>
+			<li><a onClick="TipoBusqueda('Facebook')">Facebook</a></li>
+			<li><a onClick="TipoBusqueda('Twitter')">Twitter</a></li>
+          </ul>
+  
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+		<input type="text" id="textoTipoBusqueda" class="form-control" placeholder="" disabled style="background-color:grey; color:black;>
+		</div>
+		<div class="form-group">
+          <input type="text" id="textocaso" class="form-control" placeholder="Buscar">
+		  
+        </div>
+        <button TYPE="button" id="btn_Buscar" class="btn btn-default" onClick="BuscarCaso()">Buscar</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li><a href="#">Link</a></li>-->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Opciones <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Configuracion</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Salir</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  
+  
+  <!-- <div id="sidebar" <class=button  onclick="myFunction()">Try it</button> </div> -->
+<!-- <div id="sidebar" <div id="button" <a onclick="myFunction()" class="button">Buscar</a></div></div> -->
+
+
+<!--<div id="sidebar" <FORM NAME="myform" ACTION="" METHOD="GET">-->
+<!--Enter something in the box: <BR>-->
+<!--<INPUT TYPE="text" id="textocaso" NAME="inputbox" VALUE=""><P>-->
+<!--<INPUT TYPE="button" NAME="Buscar" Value="Buscar" onClick="BuscarCaso()">-->
+<!--</FORM></div>-->
+</body>
+</html>
+
+
+<script type="application/javascript">
+
+var GRAFO;
+
+function pararAmimacion(s){
+	//alert("hola mundo");
+	//s.stopForceAtlas2();
+
+}
+var NumeroCaso="";
+function Exportar(s){
+	//alert("Exportando imagen...");
+	
+	var output = GRAFO.toSVG({download: true, filename: 'mygraph.svg', size: 1000});
+	
+}
+
+function BuscarCaso(NumeroCaso) {
+	//alert("hola");
+	var CriterioDeBusqueda=document.getElementById("textoTipoBusqueda").value;
+		
+	var NumeroCaso = "";
+	var CQL="";
+	
+	NumeroCaso=document.getElementById("textocaso").value;
+	NumeroCaso=NumeroCaso.toUpperCase();
+	NumeroCaso=NumeroCaso.trim();
+	 
+	//'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100'
+	//var CQL='MATCH (n)-[r]-(m) OPTIONAL MATCH (n) RETURN n,r,m LIMIT 100';
+	//var CQL='match (n) optional match (n)-[r]-(m) return n,r,m limit 1000';
+	//var CQL='MATCH (n:Persona)-[r]-(m) where n.Nombre = "' + NumeroCaso +'" RETURN n,r,m LIMIT 1000';
+	//var CQL='MATCH (n:Persona)-[r]-(m) where n.Nombre =~ ".*' + NumeroCaso +'.*" RETURN n,r,m LIMIT 1000';
+	//var CQL='MATCH (n:Persona)-[r]-(m) where n.Nombre n.Apellido =~ ".*' + NumeroCaso +'.*" RETURN n,r,m LIMIT 1000';
+	//var CQL='MATCH (n)-[r]-(m) WHERE (EXISTS(n.Apellido) and EXISTS (n.Nombre)) and ((n.Nombre+" "+n.Apellido) =~".*' + NumeroCaso + '.*" or (n.Apellido+" "+n.Nombre) =~".*' + NumeroCaso + '.*")return n,r,m'
+	if (NumeroCaso==""){
+		
+		alert("Atencion: Ingrese el dato a buscar");
+		CQL=""
+		//var CQL='MATCH (n) return n';
+	}
+	else{
+		
+		if (CriterioDeBusqueda=='Persona'){
+			CQL='MATCH (n:Persona)-[r]-(m) where upper(trim(n.nombre)+" "+trim(n.apellido)) =~".*' + NumeroCaso + '.*" return n,r,m';	
+		}
+		if (CriterioDeBusqueda=='Domicilio'){
+			CQL='MATCH (n:Domicilio)-[r]-(m) where upper(trim(n.calle)+" "+trim(n.altura)) =~".*' + NumeroCaso + '.*" return n,r,m';	
+		}
+		if (CriterioDeBusqueda=='Telefono'){
+			CQL='MATCH (n:Contacto)-[r]-(m) where upper(trim(n.pco_valor)) =~".*' + NumeroCaso + '.*" return n,r,m';	
+		}
+		if (CriterioDeBusqueda=='E-Mail'){
+			CQL='MATCH (n:Contacto)-[r]-(m) where upper(trim(n.pco_valor)) =~".*' + NumeroCaso + '.*" return n,r,m';	
+		}
+		if (CriterioDeBusqueda=='Facebook'){
+			CQL='MATCH (n:Contacto)-[r*]-(m) where upper(trim(n.pco_valor)) ="' + NumeroCaso + '" return n,r,m';	
+		}
+		if (CriterioDeBusqueda=='Twitter'){
+			CQL='MATCH (n:Contacto)-[r*]-(m) where upper(trim(n.pco_valor)) ="' + NumeroCaso + '" return n,r,m';	
+		}
+		if (CriterioDeBusqueda=='Caso'){
+			CQL='MATCH (n:Caso)-[r*]-(m) where upper(trim(n.doc_id)) ="' + NumeroCaso + '" return n,r,m';	
+		}
+		if (CriterioDeBusqueda=='Denuncia'){
+			CQL='MATCH (n:Denuncia)-[r*]-(m) where upper(trim(n.doc_id)) ="' + NumeroCaso + '" return n,r,m';	
+		}
+		if (CriterioDeBusqueda==''){
+			CQL="";
+			alert("Atencion: Seleccione el tipo de busqueda");
+		}
+				
+			
+	 //var CQL='MATCH (:Persona) OPTIONAL MATCH (n:Persona)-[r]-(m) WHERE (EXISTS(n.apellido) and EXISTS (n.nombre)) and ((n.nombre+" "+n.apellido) =~".*' + NumeroCaso + '.*" or (n.apellido+" "+n.nombre) =~".*' + NumeroCaso + '.*")return n,r,m';
+	 //var CQL='MATCH (:Persona) OPTIONAL MATCH (n:Persona)-[r]-(m) where (n.nombre+" "+n.apellido) =~".*' + NumeroCaso + '.*" return n,r,m';
+	 
+	 
+	 //var CQL='MATCH (n:Persona)-[r*]-(m) where (n.nombre+" "+n.apellido) =~".*' + NumeroCaso.toUpperCase() + '.*" return n,r,m';
+	 //var CQL='MATCH (n:Persona)-[r]-(m) where (n.nombre+" "+n.apellido) =~".*' + NumeroCaso.toUpperCase() + '.*" return n,r,m';
+	 	 
+	 
+	 
+	 //var CQL='MATCH p = (n:Persona)-[r*2..3]-(m) UNWIND nodes(p) as allnodes WITH COLLECT(ID(allnodes)) AS ALLID MATCH (a)-[r2]-(b) where ID(a) IN ALLID AND ID(b) IN ALLID AND (EXISTS(n.Apellido) and EXISTS (n.Nombre)) and ((n.Nombre+" "+n.Apellido) =~".*' + NumeroCaso + '.*" or (n.Apellido+" "+n.Nombre) =~".*' + NumeroCaso + '.*")RETURN a,r2,b';
+		
+	}
+	//=~ 
+	if (CQL!=""){
+		document.getElementById("btn_Buscar").disabled = true;
+		runCQL (CQL);
+	}
+}
+function TipoBusqueda(tipo){
+
+	//alert("tipo de busqueda: " +  tipo);
+	document.getElementById("textoTipoBusqueda").value=tipo;
+}
+
+
+/**
+ * This is a basic example on how to develop a custom node renderer. In
+ * this example, the renderer will display an image clipped in a disc,
+ * with a border colored according the node's "color" value.
+ *
+ * If a node as the value "image" to its attribute "type", then it will
+ * displayed with the node renderer "sigma.canvas.nodes.image", with the
+ * url being its "url" value.
+ *
+ * IMPORTANT: This node renderer just works with the canvas renderer. If
+ * you do want to display images with the WebGL renderer, you will have
+ * to develop a specific WebGL node renderer.
+ */
+
+ //sigma.utils.pkg('sigma.canvas.nodes');
+ function runCQL (query){
+ 
+ sigma.utils.pkg('sigma.canvas.nodes');
+
+
+    /**
+
+
+     * Here is just a basic example on how to properly display a neo4j cypher query.
+     *
+     * The plugin sigma.neo4j.cypher can load a cypher query, parse the JSON response,
+     * and instantiate sigma when the response is received.
+     *
+     * It based on the json parser (that's why its must be loaded).
+     */
+    //console.log("Relationship types");
+    sigma.neo4j.cypher(
+            { url: 'http://10.170.50.69:7474', user: 'neo4j', password: 'admin' },
+	//'MATCH (n)-[]-() OPTIONAL MATCH (n:Denunciante) RETURN n LIMIT 1000',
+	//'MATCHtClickNode(n) RETURN n LIMIT 1000',
+        //    'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100',//'MATCH (n) RETURN n LIMIT 1000',//'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100',
+	     query,
+            { container: 'graph-container' } ,
+            function(s) {
+                console.log('Number of nodes :'+ s.graph.nodes().length);
+                console.log('Number of edges :'+ s.graph.edges().length);
+
+	var config = {
+  		node: [{
+    		//show: 'hovers',
+			show: 'clickNode',
+    		hide: 'hovers',
+    		cssClass: 'sigma-tooltip',
+    		//position: 'top',
+			position: 'bottom',
+    		autoadjust: true,
+    		template:
+    		'<div class="arrow"></div>' +
+    		' <div class="sigma-tooltip-header">{{label}}</div>' +
+    		'  <div class="sigma-tooltip-body">' +
+    		'    <table>' +
+    		'      <tr><th>Doc: </th> <td>{{neo4j_data.tipo_documento}}  {{neo4j_data.documento}}</td></tr>' +
+    		'      <tr><th>Nacionalidad: </th> <td>{{neo4j_data.nacionalidad}}</td></tr>' +
+    		'      <tr><th>Nacimiento: </th> <td>{{neo4j_data.nacimiento}}</td></tr>' +
+    		'      <tr><th>Genero: </th> <td>{{neo4j_data.genero}}</td></tr>' +
+    		'    </table>' +
+    		'  </div>' +
+    		'  <div class="sigma-tooltip-footer">Conexiones: {{degree}}</div>',
+    		renderer: function(node, template) {
+				// The function context is s.graph
+				node.degree = this.degree(node.id);
+				if (node.neo4j_labels=="Denuncia"){
+		
+					template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Num: {{neo4j_data.doc_id}}</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th>Informatico: </th> <td>{{neo4j_data.informatico}}</td></tr>' +
+							'      <tr><th>Dependencia: </th> <td>{{neo4j_data.dependencia}}</td></tr>' +
+							'      <tr><th>Estado: </th> <td>{{neo4j_data.estado}}</td></tr>' +
+							'      <tr><th>Flagrancia: </th> <td>{{neo4j_data.flagrancia}}</td></tr>' +
+							'      <tr><th>Via Publica: </th> <td>{{neo4j_data.via_publica}}</td></tr>' +
+							'      <tr><th>V. Domestica: </th> <td>{{neo4j_data.vd}}</td></tr>' +
+							'      <tr><th>Zona: </th> <td>{{neo4j_data.zona}}</td></tr>' +
+							'    </table>' +
+							'  </div>' +
+							'  <div class="sigma-tooltip-footer">Conexiones: {{degree}}</div>';
+				}else if (node.neo4j_labels=="Persona"){
+				
+				
+				template='<div class="arrow"></div>' +
+						' <div class="sigma-tooltip-header">{{neo4j_data.nombre}} {{neo4j_data.apellido}}</div>' +
+						'  <div class="sigma-tooltip-body">' +
+						'    <table>' +
+						'      <tr><th>Doc: </th> <td>{{neo4j_data.tipo_documento}}  {{neo4j_data.documento}}</td></tr>' +
+						'      <tr><th>Nacionalidad: </th> <td>{{neo4j_data.nacionalidad}}</td></tr>' +
+						'      <tr><th>Nacimiento: </th> <td>{{neo4j_data.nacimiento}}</td></tr>' +
+						'      <tr><th>Genero: </th> <td>{{neo4j_data.genero}}</td></tr>' +
+						'    </table>' +
+						'  </div>' +
+						'  <div class="sigma-tooltip-footer">Conexiones: {{degree}}</div>';
+						
+				}else if (node.neo4j_labels=="Caso"){
+				
+				template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Num: {{neo4j_data.doc_id}}</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th>Informatico: </th> <td>{{neo4j_data.informatico}}</td></tr>' +
+							'      <tr><th>Dependencia: </th> <td>{{neo4j_data.dependencia}}</td></tr>' +
+							'      <tr><th>Estado: </th> <td>{{neo4j_data.estado}}</td></tr>' +
+							'      <tr><th>Flagrancia: </th> <td>{{neo4j_data.flagrancia}}</td></tr>' +
+							'      <tr><th>Via Publica: </th> <td>{{neo4j_data.via_publica}}</td></tr>' +
+							'      <tr><th>V. Domestica: </th> <td>{{neo4j_data.vd}}</td></tr>' +
+							'      <tr><th>Zona: </th> <td>{{neo4j_data.zona}}</td></tr>' +
+							'    </table>' +
+							'  </div>' +
+							'  <div class="sigma-tooltip-footer">Conexiones: {{degree}}</div>';
+				
+				}else if (node.neo4j_labels=="Domicilio"){
+				
+				template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Direccion</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th>Calle: </th> <td>{{neo4j_data.calle}}</td></tr>' +
+							'      <tr><th>Altura: </th> <td>{{neo4j_data.altura}}</td></tr>' +
+							'      <tr><th>Ciudad: </th> <td>{{neo4j_data.ciudad}}</td></tr>' +
+							'      <tr><th>Provincia: </th> <td>{{neo4j_data.provincia}}</td></tr>' +
+							'    </table>' +
+							'  </div>' +
+							'  <div class="sigma-tooltip-footer">Conexiones: {{degree}}</div>';
+				
+				}else if (node.neo4j_labels=="Contacto"){
+				
+				template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Contacto</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><td>{{neo4j_data.pco_tipo}}: {{neo4j_data.pco_valor}}</td></tr>' +
+							'    </table>' +
+							'  </div>' +
+							'  <div class="sigma-tooltip-footer">Conexiones: {{degree}}</div>';
+				
+				}
+				// Returns an HTML string:
+				return Mustache.render(template, node);
+
+				// Returns a DOM Element:
+				//var el = document.createElement('div');
+				//return el.innerHTML = Mustache.render(template, node);
+    		}
+  		}, {
+    		show: 'rightClickNode',
+    		cssClass: 'sigma-tooltip',
+    		position: 'right',
+    		template:
+    			'<div class="arrow"></div>' +
+    			' <div class="sigma-tooltip-header">{{label}}</div>' +
+    			'  <div class="sigma-tooltip-body">' +
+    			'   <p> Context menu for {{data.Nombre}} </p>' +
+    			'  </div>', 
+				
+    		renderer: function(node, template) {
+      		node.degree = this.degree(node.id);
+			
+			if (node.neo4j_labels=="Denuncia"){
+		
+					template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Buscar...</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th>Efectos...</th></tr>' +
+							'      <tr><th>Personas... </th></tr>' +
+							'    </table>' +
+							'  </div>'; 
+							
+				
+				}else if (node.neo4j_labels=="Caso"){
+				
+						template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Buscar...</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th>Efectos...</th></tr>' +
+							'      <tr><th>Personas... </th></tr>' +
+							'    </table>' +
+							'  </div>'; 
+				
+				}else if (node.neo4j_labels=="Domicilio"){
+				
+						template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Buscar...</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th>Casos y Denuncias...</th></tr>' +
+							'      <tr><th>Ubicar en mapa... </th></tr>' +
+							'    </table>' +
+							'  </div>'; 
+				
+				}else if (node.neo4j_labels=="Persona"){
+					template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Buscar...</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th>Domicilios...</th></tr>' +
+							'      <tr><th>Telefono... </th></tr>' +
+							'      <tr><th>Email... </th></tr>' +
+							'      <tr><th>Casos... </th></tr>' +
+							'    </table>' +
+							'  </div>'; 
+				}else if (node.neo4j_labels=="Contacto"){
+					template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">Buscar...</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th></th></tr>' +
+							'      <tr><th></th></tr>' +
+							'      <tr><th></th></tr>' +
+							'      <tr><th></th></tr>' +
+							'    </table>' +
+							'  </div>'; 
+				
+				}else{
+				
+					template='<div class="arrow"></div>' +
+							' <div class="sigma-tooltip-header">A Definir...</div>' +
+							'  <div class="sigma-tooltip-body">' +
+							'    <table>' +
+							'      <tr><th>Domicilios...</th></tr>' +
+							'      <tr><th>Telefono... </th></tr>' +
+							'      <tr><th>Email... </th></tr>' +
+							'      <tr><th>Casos... </th></tr>' +
+							'    </table>' +
+							'  </div>'; 
+				
+				}
+			
+			
+      		return Mustache.render(template, node);
+    		}
+  		}],
+  		stage: {
+    		template:
+    			'<div class="arrow"></div>' +
+    			'<div class="sigma-tooltip-header"> Menu </div>'
+  		}
+		};
+
+		var tooltips = sigma.plugins.tooltips(s, s.renderers[0], config);
+		/*var tooltips = sigma.plugins.tooltips(s, s.renderers[0], {node: { position : 'top' ,show: 'clickNode',
+			//template: 'Telefono: <BR> Domicilio: </BR> Email: </BR>'
+			template: '  <div class="sigma-tooltip-body">' +
+    		'    <table>' +
+    		'      <tr><th>Doc: </th> <td>{{data.Tipo_Doc}}{{data.Nro_Doc}}</td></tr>' +
+    		'      <tr><th>Nacionalidad: </th> <td>{{data.Nacionalidad}}</td></tr>' +
+    		'      <tr><th>Nacimiento: </th> <td>{{data.Fecha_Nac}}</td></tr>' +
+    		'      <tr><th>Genero: </th> <td>{{data.Sexo}}</td></tr>' +
+    		'    </table>' +
+    		'  </div>',
+			renderer: function(node, template) {
+      		node.degree = this.degree(node.id);
+      		return Mustache.render(template, node);
+			}
+			}});*/
+
+				var activeState = sigma.plugins.activeState(s);
+				var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
+
+                		dragListener.bind('startdrag', function(event) {console.log(event) });
+	
+				GRAFO=s;//prueba
+				var config = {
+  				nodeMargin: 1.0,
+  				scaleNodes: 1.0,
+				slowDown: 10,
+				iterations: 50,
+  				easing: 'quadraticInOut',
+  				duration: 8
+				};
+
+				var config = {
+				linLogMode: false,
+				outboundAttractionDistribution: false,
+				adjustSizes: false,
+				edgeWeightInfluence: 0,
+				scalingRatio: 1,
+				strongGravityMode: true,
+				gravity: 5,
+				barnesHutOptimize: false,
+				barnesHutTheta: 0.9,
+				slowDown: 10,
+				startingIterations: 5,
+				iterationsPerRender: 1,
+				maxIterations: 10,
+				avgDistanceThreshold: 0.1,
+				autoStop: true, 
+				easing: 'cubicInOut' 
+				};
+
+				var config2 = {
+				worker: true,
+    				autoStop: true,
+    				background: true,
+    				scaleRatio: 102,
+    				gravity: 1,
+    				avgDistanceThreshold: 3 ,
+    				easing: 'cubicInOut'
+				};
+// Configure the ForceLink algorithm:
+  var fa = sigma.layouts.configForceLink(s, {
+    worker: true,
+    autoStop: true,
+    background: true,
+    scaleRatio: 1,
+    gravity: 10,
+    avgDistanceThreshold: 3 ,
+    slowDown: 10,
+    easing: 'cubicInOut'
+  });
+//var fa = sigma.layouts.configForceLink(s, {config2});
+
+  /* Bind the events:
+  fa.bind('start stop', function(e) {
+    console.log(e.type);
+    document.getElementById('layout-notification').style.visibility = '';
+    if (e.type == 'start') {
+      document.getElementById('layout-notification').style.visibility = 'visible';
+    }
+  });*/
+
+  // Start the ForceLink algorithm:
+  sigma.layouts.startForceLink();
+
+
+
+				//s.configNoverlap(config);
+				//s.startNoverlap();	
+
+				//s.startForceAtlas2(config);	
+
+				//s.startForceAtlas2({worker: true, slowDown: 0});//animacion
+				//s.stopForceAtlas2();
+				//s.layouts.dagre.start(sigInst);
+				//s.fruchtermanReingold.start(s);
+			
+				/*s.configForceAtlas2(s, {
+    					autoStop: false,
+    					background: true,
+    					easing: 'cubicInOut'
+  				})
+  				.bind('interpolate', function(){
+    				s.settings('drawLabels', true);
+    				s.settings('drawEdgeLabels', true);
+  				})
+  				.bind('stop', function(){
+    				s.settings('drawLabels', true);
+    				s.settings('drawEdgeLabels', true);
+    				s.refresh({ skipIndexation:true });
+				});
+				s.startForceAtlas2({worker: true, slowDown: 100});*/
+            }
+			
+			
+			
+		//prueba
+		//s.refresh();
+		
+		
+    );
+
+    // Calling neo4j to get all its relationship type
+    sigma.neo4j.getTypes(
+            { url: 'http://10.170.50.69:7474', user:'neo4j', password:'admin' },
+            function(types) {
+                console.log("Relationship types" + types);
+            }
+    );
+
+    //Calling neo4j to get all its node label
+    sigma.neo4j.getLabels(
+            { url: 'http://10.170.50.69:7474', user:'neo4j', password:'admin' },
+            function(labels) {
+                console.log("Node labels" + labels);
+            }
+
+    );
+
+
+} //fin de la funcion runCQL
+
+</script>

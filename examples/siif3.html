@@ -1,0 +1,455 @@
+<!-- START SIGMA IMPORTS -->
+<script src="../src/sigma.core.js"></script>
+<script src="../src/conrad.js"></script>
+<script src="../src/utils/sigma.utils.js"></script>
+<script src="../src/utils/sigma.polyfills.js"></script>
+<script src="../src/sigma.settings.js"></script>
+<script src="../src/classes/sigma.classes.dispatcher.js"></script>
+<script src="../src/classes/sigma.classes.configurable.js"></script>
+<script src="../src/classes/sigma.classes.graph.js"></script>
+<script src="../src/classes/sigma.classes.camera.js"></script>
+<script src="../src/classes/sigma.classes.quad.js"></script>
+<script src="../src/captors/sigma.captors.mouse.js"></script>
+<script src="../src/captors/sigma.captors.touch.js"></script>
+<script src="../src/renderers/sigma.renderers.canvas.js"></script>
+<script src="../src/renderers/sigma.renderers.webgl.js"></script>
+<script src="../src/renderers/sigma.renderers.svg.js"></script>
+<script src="../src/renderers/sigma.renderers.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+<script src="../src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+<script src="../src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.utils.js"></script>
+<script src="../src/renderers/svg/sigma.svg.nodes.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.curve.js"></script>
+<script src="../src/renderers/svg/sigma.svg.edges.curvedArrow.js"></script>
+<script src="../src/renderers/svg/sigma.svg.labels.def.js"></script>
+<script src="../src/renderers/svg/sigma.svg.hovers.def.js"></script>
+<script src="../src/middlewares/sigma.middlewares.rescale.js"></script>
+<script src="../src/middlewares/sigma.middlewares.copy.js"></script>
+<script src="../src/misc/sigma.misc.animation.js"></script>
+<script src="../src/misc/sigma.misc.bindEvents.js"></script>
+<script src="../src/misc/sigma.misc.bindDOMEvents.js"></script>
+<script src="../src/misc/sigma.misc.drawHovers.js"></script>
+<!-- END SIGMA IMPORTS -->
+<script src="../plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+<script src="../plugins/sigma.parsers.cypher.js"></script>
+
+<script src="../plugins/sigma.helpers.graph/sigma.helpers.graph.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/settings.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+
+<script src="../plugins/sigma.plugins.tooltips/sigma.plugins.tooltips.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+
+<!-- -->
+<script src="../plugins/sigma.renderers.halo/settings.js"></script>
+<script src="../plugins/sigma.renderers.halo/sigma.renderers.halo.js"></script>
+
+<script src="../plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script>
+
+<script src="../plugins/sigma.plugins.keyboard/sigma.plugins.keyboard.js"></script>
+<script src="../plugins/sigma.plugins.activeState/sigma.plugins.activeState.js"></script>
+<script src="../plugins/sigma.plugins.select/sigma.plugins.select.js"></script>
+<script src="../plugins/sigma.plugins.lasso/sigma.plugins.lasso.js"></script>
+
+<script src="../plugins/sigma.renderers.linkurious/settings.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.labels.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.cross.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.diamond.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.equilateral.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.square.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.star.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.def.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="../plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+
+
+<meta http-equiv="pragma" content="no-cache" />
+<!DOCTYPE html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIIF: Sistema Integral de Informacion Fiscal</title>
+<!-- Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->	
+	
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">SIIF</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+
+<div id="container">
+    <style>
+        #graph-container {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+        }
+
+	.sigma-tooltip {
+      	max-width: 240px;
+      	max-height: 280px;
+      	background-color: rgb(249, 247, 237);
+      	box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      	border-radius: 6px;
+    	}
+
+    .sigma-tooltip-header {
+      font-variant: small-caps;
+      font-size: 120%;
+      color: #437356;
+      border-bottom: 1px solid #aac789;
+      padding: 10px;
+    }
+
+    .sigma-tooltip-body {
+      padding: 10px;
+    }
+
+    .sigma-tooltip-body th {
+      color: #999;
+      text-align: left;
+    }
+
+    .sigma-tooltip-footer {
+      padding: 10px;
+      border-top: 1px solid #aac789;
+    }
+
+    .sigma-tooltip > .arrow {
+      border-width: 10px;
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+    }
+
+    .sigma-tooltip.top {
+      margin-top: -12px;
+    }
+    .sigma-tooltip.top > .arrow {
+      left: 50%;
+      bottom: -10px;
+      margin-left: -10px;
+      border-top-color: rgb(249, 247, 237);
+      border-bottom-width: 0;
+    }
+
+    .sigma-tooltip.bottom {
+      margin-top: 12px;
+    }
+    .sigma-tooltip.bottom > .arrow {
+      left: 50%;
+      top: -10px;
+      margin-left: -10px;
+      border-bottom-color: rgb(249, 247, 237);
+      border-top-width: 0;
+    }
+    .sigma-tooltip.left {
+      margin-left: -12px;
+    }
+    .sigma-tooltip.left > .arrow {
+      top: 50%;
+      right: -10px;
+      margin-top: -10px;
+      border-left-color: rgb(249, 247, 237);
+      border-right-width: 0;
+    }
+
+    .sigma-tooltip.right {
+      margin-left: 12px;
+    }
+    .sigma-tooltip.right > .arrow {
+      top: 50%;
+      left: -10px;
+      margin-top: -10px;
+      border-right-color: rgb(249, 247, 237);
+      border-left-width: 0;
+    }
+
+#sidebar {
+      bottom: 0;
+      right: 0;
+      width: 300px;
+      height: 150px;
+      position: absolute;
+      background-color: #330;
+      padding: 10px;
+    }
+#button {
+    background-color: #e7e7e7;
+    border: none;
+	border-radius: 10px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	}
+
+#inputtext {
+    	width: 100%;
+    	padding: 12px 20px;
+    	margin: 8px 32px;
+    	box-sizing: border-box;
+	display: inline-block;
+   	 background-color: #e7e7e7;	
+	}
+
+
+    <div id="graph-container"></div>
+    <!-- <div id="sidebar">This area is not a drop target.</div> -->
+
+</div>
+
+<!-- <div id="sidebar" <class=button  onclick="myFunction()">Try it</button> </div> -->
+<!-- <div id="sidebar" <div id="button" <a onclick="myFunction()" class="button">Buscar</a></div></div> -->
+
+
+<div id="sidebar" <FORM NAME="myform" ACTION="" METHOD="GET">
+Enter something in the box: <BR>
+<INPUT TYPE="text" id="textocaso" NAME="inputbox" VALUE=""><P>
+<INPUT TYPE="button" NAME="Buscar" Value="Buscar" onClick="BuscarCaso()">
+</FORM></div>
+
+
+</body>
+
+</html>
+
+<script type="application/javascript">
+var NumeroCaso="";
+
+function BuscarCaso(NumeroCaso) {
+	alert("hola");
+	var NumeroCaso = "";
+	NumeroCaso=document.getElementById("textocaso").value;
+	//'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100'
+	var CQL='MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100';
+	runCQL (CQL);
+}
+
+
+
+
+/**
+ * This is a basic example on how to develop a custom node renderer. In
+ * this example, the renderer will display an image clipped in a disc,
+ * with a border colored according the node's "color" value.
+ *
+ * If a node as the value "image" to its attribute "type", then it will
+ * displayed with the node renderer "sigma.canvas.nodes.image", with the
+ * url being its "url" value.
+ *
+ * IMPORTANT: This node renderer just works with the canvas renderer. If
+ * you do want to display images with the WebGL renderer, you will have
+ * to develop a specific WebGL node renderer.
+ */
+sigma.utils.pkg('sigma.canvas.nodes');
+
+
+function runCQL (query){
+    /**
+
+
+     * Here is just a basic example on how to properly display a neo4j cypher query.
+     *
+     * The plugin sigma.neo4j.cypher can load a cypher query, parse the JSON response,
+     * and instantiate sigma when the response is received.
+     *
+     * It based on the json parser (that's why its must be loaded).
+     */
+    //console.log("Relationship types");
+    sigma.neo4j.cypher(
+            { url: 'http://10.170.50.69:7474', user: 'neo4j', password: 'admin' },
+	//'MATCH (n)-[]-() OPTIONAL MATCH (n:Denunciante) RETURN n LIMIT 1000',
+	//'MATCHtClickNode(n) RETURN n LIMIT 1000',
+        //    'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100',//'MATCH (n) RETURN n LIMIT 1000',//'MATCH (n)-[r]-(m) RETURN n,r,m LIMIT 100',
+	     query,
+            { container: 'graph-container' } ,
+            function(s) {
+                console.log('Number of nodes :'+ s.graph.nodes().length);
+                console.log('Number of edges :'+ s.graph.edges().length);
+
+	var config = {
+  		node: [{
+    		show: 'hovers',
+    		hide: 'hovers',
+    		cssClass: 'sigma-tooltip',
+    		position: 'top',
+    		autoadjust: true,
+    		template:
+    		'<div class="arrow"></div>' +
+    		' <div class="sigma-tooltip-header">{{label}}</div>' +
+    		'  <div class="sigma-tooltip-body">' +
+    		'    <table>' +
+    		'      <tr><th>Name</th> <td>{{"data.name"}}</td></tr>' +
+    		'      <tr><th>Gender</th> <td>{{"data.gender"}}</td></tr>' +
+    		'      <tr><th>Age</th> <td>{{"data.age"}}</td></tr>' +
+    		'      <tr><th>City</th> <td>{{"data.city"}}</td></tr>' +
+    		'    </table>' +
+    		'  </div>' +
+    		'  <div class="sigma-tooltip-footer">Number of connections: {{degree}}</div>',
+    		renderer: function(node, template) {
+      		// The function context is s.graph
+      		node.degree = this.degree(node.id);
+
+      		// Returns an HTML string:
+      		return Mustache.render(template, node);
+
+      		// Returns a DOM Element:
+      		//var el = document.createElement('div');
+      		//return el.innerHTML = Mustache.render(template, node);
+    		}
+  		}, {
+    		show: 'rightClickNode',
+    		cssClass: 'sigma-tooltip',
+    		position: 'right',
+    		template:
+    			'<div class="arrow"></div>' +
+    			' <div class="sigma-tooltip-header">{{label}}</div>' +
+    			'  <div class="sigma-tooltip-body">' +
+    			'   <p> Context menu for {{data.name}} </p>' +
+    			'  </div>' +
+    			' <div class="sigma-tooltip-footer">Number of connections: {{degree}}</div>',
+    		renderer: function(node, template) {
+      		node.degree = this.degree(node.id);
+      		return Mustache.render(template, node);
+    		}
+  		}],
+  		stage: {
+    		template:
+    			'<div class="arrow"></div>' +
+    			'<div class="sigma-tooltip-header"> Menu </div>'
+  		}
+		};
+
+		//var tooltips = sigma.plugins.tooltips(s, s.renderers[0], config);
+		var tooltips = sigma.plugins.tooltips(s, s.renderers[0], {node: { position : 'top' ,show: 'clickNode', template: '<b>Mostrar Datos del NODO dependiento el tipo</b>' }});
+
+ 		var activeState = sigma.plugins.activeState(s);
+		var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
+
+                dragListener.bind('startdrag', function(event) {console.log(event) });
+
+            }
+    );
+
+    // Calling neo4j to get all its relationship type
+    sigma.neo4j.getTypes(
+            { url: 'http://10.170.50.69:7474', user:'neo4j', password:'admin' },
+            function(types) {
+                console.log("Relationship types" + types);
+            }
+    );
+
+    //Calling neo4j to get all its node label
+    sigma.neo4j.getLabels(
+            { url: 'http://10.170.50.69:7474', user:'neo4j', password:'admin' },
+            function(labels) {
+                console.log("Node labels" + labels);
+            }
+
+    );
+
+
+} //fin de la funcion runCQL
+
+</script>
